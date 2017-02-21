@@ -19,7 +19,7 @@ testIdeaBox(driver_chr);
 // testIdeaBox(driver_saf);
 
 function testIdeaBox (driver) {
-  driver.get('file:///Users/JackBevis/Turing/mod1/2Do-Box-Pivot/index.html');
+  driver.get('https://jbevis.github.io/2DoBox-Pivot/');
   driver.findElement(By.id('title-input')).sendKeys('Test Idea');
   driver.findElement(By.id('body-input')).sendKeys('Test idea body text');
   driver.findElement(By.id('save-button')).click();
@@ -63,6 +63,16 @@ function testIdeaBox (driver) {
         console.log('Delete button test failed');
       };
     });
+  driver.navigate().refresh();
+  driver.sleep(3000).then(function () {
+    driver.findElement(By.className('idea-box-container')).getText().then(function(body) {
+      if (body === "") {
+        console.log('Item removed from storage test passed');
+      } else {
+        console.log('Item removed from storage test failed');
+      };
+    });
+  });
   });
 
 
