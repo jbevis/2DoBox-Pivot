@@ -52,6 +52,28 @@ function testIdeaBox (driver) {
       };
     });
   });
+//upvote test. find the upvote button. click.
+driver.findElement(By.className('upvote-button')).click();
+driver.sleep(3000).then(function () {
+  driver.findElement(By.className('current-quality')).getText().then(function (quality) {
+    if (quality === "plausible") {
+      console.log('Upvote button test passed');
+    } else {
+      console.log('Upvote button test failed');
+    }
+  });
+});
+//downvote test. find the downvote button. click.
+  driver.findElement(By.className('downvote-button')).click();
+  driver.sleep(3000).then(function () {
+    driver.findElement(By.className('current-quality')).getText().then(function (quality) {
+      if (quality === "swill") {
+        console.log('Downvote button test passed');
+      } else {
+        console.log('Downvote button test failed');
+      }
+    });
+  });
 
 //Check delete button. find delete button. click.
   driver.findElement(By.className('delete-button')).click();
