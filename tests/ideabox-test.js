@@ -65,47 +65,47 @@ function testIdeaBox (driver) {
   });
 
 
-// //Test clear inputs
-//   driver.findElement(By.id('title-input')).getText().then(function(title) {
-//     if (title === "") {
-//       console.log("Clear title field test passed")
-//     } else {
-//       console.log("Clear title field test failed")
-//     }
-//   });
-//   driver.findElement(By.id('body-input')).getText().then(function(body) {
-//     if (body === "") {
-//       console.log("Clear body field test passed");
-//     } else {
-//       console.console.log("Clear body field test failed");
-//     }
-//   });
+//Test clear inputs
+  driver.findElement(By.id('title-input')).getText().then(function(title) {
+    if (title === "") {
+      console.log("Clear title field test passed")
+    } else {
+      console.log("Clear title field test failed")
+    }
+  });
+  driver.findElement(By.id('body-input')).getText().then(function(body) {
+    if (body === "") {
+      console.log("Clear body field test passed");
+    } else {
+      console.console.log("Clear body field test failed");
+    }
+  });
 
 
-// //upvote test. find the upvote button. click.
-// driver.findElement(By.className('upvote-button')).click();
-// driver.sleep(3000).then(function () {
-//   driver.findElement(By.className('current-quality')).getText().then(function (quality) {
-//     if (quality === "plausible") {
-//       console.log('Upvote button test passed');
-//     } else {
-//       console.log('Upvote button test failed');
-//     }
-//   });
-// });
-//
-//
-// //downvote test. find the downvote button. click.
-//   driver.findElement(By.className('downvote-button')).click();
-//   driver.sleep(3000).then(function () {
-//     driver.findElement(By.className('current-quality')).getText().then(function (quality) {
-//       if (quality === "swill") {
-//         console.log('Downvote button test passed');
-//       } else {
-//         console.log('Downvote button test failed');
-//       }
-//     });
-//   });
+//upvote test. find the upvote button. click.
+driver.findElement(By.className('upvote-button')).click();
+driver.sleep(3000).then(function () {
+  driver.findElement(By.className('current-quality')).getText().then(function (quality) {
+    if (quality === "plausible") {
+      console.log('Upvote button test passed');
+    } else {
+      console.log('Upvote button test failed');
+    }
+  });
+});
+
+
+//downvote test. find the downvote button. click.
+  driver.findElement(By.className('downvote-button')).click();
+  driver.sleep(3000).then(function () {
+    driver.findElement(By.className('current-quality')).getText().then(function (quality) {
+      if (quality === "swill") {
+        console.log('Downvote button test passed');
+      } else {
+        console.log('Downvote button test failed');
+      }
+    });
+  });
 
 
 //Check to see if card content is editable. Find card title and body, send keys, compare
@@ -122,12 +122,25 @@ function testIdeaBox (driver) {
       };
     });
     driver.findElement(By.className('idea-body')).getText().then(function (newBody) {
-      if (newBody === "New idea body textx") {
+      if (newBody === "Test idea body textx") {
         console.log('Body content editable test passed');
       } else {
         console.log('Body content editable test failed');
       };
     });
+  });
+//
+//
+//Test search input is returing matching text in cards.
+  driver.findElement(By.id('title-input')).sendKeys('Google');
+  driver.findElement(By.id('save-button')).click();
+  driver.findElement(By.id('search-input')).sendKeys('Google');
+  driver.findElement(By.className('idea-title')).getText().then(function (title) {
+    if (title === 'Google') {
+      console.log('Search input test passed')
+    } else {
+      console.log('Search input test failed')
+    }
   });
 
 
@@ -135,7 +148,7 @@ function testIdeaBox (driver) {
   driver.navigate().refresh();
   driver.sleep(5000).then(function () {
     driver.findElement(By.className('idea-title')).getText().then(function(title) {
-      if (title === 'Testx Idea') {
+      if (title === 'Google') {
         console.log('Page reload test Passed');
       } else {
         console.log('Page reload test failed');
@@ -147,8 +160,8 @@ function testIdeaBox (driver) {
 //Check delete button. find delete button. click.
   driver.findElement(By.className('delete-button')).click();
   driver.sleep(3000).then(function () {
-    driver.findElement(By.className('idea-box-container')).getText().then(function(body) {
-      if (body === "") {
+    driver.findElement(By.className('idea-title')).getText().then(function(title) {
+      if (title === 'Testx Idea') {
         console.log('Delete button test passed');
       } else {
         console.log('Delete button test failed');
@@ -159,8 +172,8 @@ function testIdeaBox (driver) {
   //Reload to check localStorage after delete.
   driver.navigate().refresh();
   driver.sleep(3000).then(function () {
-    driver.findElement(By.className('idea-box-container')).getText().then(function(body) {
-      if (body === "") {
+    driver.findElement(By.className('idea-title')).getText().then(function(title) {
+      if (title === "Testx Idea") {
         console.log('Item removed from storage test passed');
       } else {
         console.log('Item removed from storage test failed');
@@ -168,12 +181,6 @@ function testIdeaBox (driver) {
     });
   });
   });
-
-
-
-
-
-
 
   driver.quit();
 }
