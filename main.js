@@ -1,11 +1,11 @@
 $(function () {
   for (var i = 0; i < localStorage.length; i++){
-    var $storedIdeas = getStoredIdeas(localStorage.key(i));
-    prependIdeaBox($storedIdeas)
+    var $storedtoDos = getStoredToDos(localStorage.key(i));
+    prependToDoBox($storedtoDos)
   }
 })
 
-function getStoredIdeas (id) {
+function getStoredToDos (id) {
   return JSON.parse(localStorage.getItem(id));
 }
 
@@ -14,41 +14,41 @@ $('#save-button').on('click', function() {
   var $body = $('#body-input').val();
   var $uniqId = Date.now()
   var $quality = 'swill';
-  var $newIdea = new IdeaObject ($uniqId, $title, $body, $quality);
-  var key = $newIdea.id;
-  localStorage.setItem(key, JSON.stringify($newIdea));
-  prependIdeaBox($newIdea);
+  var $newtoDo = new toDoObject ($uniqId, $title, $body, $quality);
+  var key = $newtoDo.id;
+  localStorage.setItem(key, JSON.stringify($newtoDo));
+  prependToDoBox($newtoDo);
   resetInputs();
 })
 
-function IdeaObject (id, title, body, quality){
+function toDoObject (id, title, body, quality){
   this.id = id;
   this.title = title;
   this.body = body;
   this.quality = quality;
 }
 
-function prependIdeaBox(ideaObj) {
-  $('.idea-box-container').prepend(
-    `<article class="idea-card" id="${ideaObj.id}">
+function prependToDoBox(toDoObj) {
+  $('.to-do-list').prepend(
+    `<article class="to-do-card" id="${toDoObj.id}">
       <button class="delete-button"></button>
       <section class="search-target">
-      <h2 class="idea-title" contenteditable>${ideaObj.title}</h2>
-      <p class="idea-body" contenteditable>${ideaObj.body}</p>
+      <h2 class="to-do-title" contenteditable>${toDoObj.title}</h2>
+      <p class="to-do-body" contenteditable>${toDoObj.body}</p>
       </section>
       <section class="quality">
         <button class="upvote-button"></button>
         <button class="downvote-button"></button>
-        <h3>quality: <span class="current-quality">${ideaObj.quality}</span></h3>
+        <h3>quality: <span class="current-quality">${toDoObj.quality}</span></h3>
       </section>
     </article>
     `
   )
 }
 
-$('.idea-box-container').on('click', '.delete-button', (function() {
-  var selectId = $(this).parents('.idea-card').attr('id')
-  $(this).parents('.idea-card').remove()
+$('.to-do-list').on('click', '.delete-button', (function() {
+  var selectId = $(this).parents('.to-do-card').attr('id')
+  $(this).parents('.to-do-card').remove()
   localStorage.removeItem(selectId)
 }))
 
@@ -61,37 +61,37 @@ $('#title-input, #body-input').on('keyup', function(){
   $('#save-button').prop('disabled', false);
 })
 
-$('.idea-box-container').on('click','.upvote-button' , function() {
-  var $currentQuality = $(this).closest('.idea-card').find('.current-quality');
+$('.to-do-list').on('click','.upvote-button' , function() {
+  var $currentQuality = $(this).closest('.to-do-card').find('.current-quality');
   if ($currentQuality.text() === "swill") {
     $currentQuality.text("plausible");
   } else if ($currentQuality.text() === "plausible"){
     $currentQuality.text("genius");
   }
-  var key = $(this).closest('.idea-card').attr('id');
+  var key = $(this).closest('.to-do-card').attr('id');
   var updatedQuality = $currentQuality.text();
-  var ideaBox = JSON.parse(localStorage.getItem(key));
-  ideaBox.quality = updatedQuality;
-  localStorage.setItem(key, JSON.stringify(ideaBox))
+  var toDoBox = JSON.parse(localStorage.getItem(key));
+  toDoBox.quality = updatedQuality;
+  localStorage.setItem(key, JSON.stringify(toDoBox))
 })
 
-$('.idea-box-container').on('click','.downvote-button', function() {
-  var $currentQuality = $(this).closest('.idea-card').find('.current-quality');
+$('.to-do-list').on('click','.downvote-button', function() {
+  var $currentQuality = $(this).closest('.to-do-card').find('.current-quality');
   if ($currentQuality.text() === "genius") {
     $currentQuality.text("plausible");
   } else if ($currentQuality.text() === "plausible"){
     $currentQuality.text("swill");
   }
-  var key = $(this).closest('.idea-card').attr('id');
+  var key = $(this).closest('.to-do-card').attr('id');
   var updatedQuality = $currentQuality.text();
-  var ideaBox = JSON.parse(localStorage.getItem(key));
-  ideaBox.quality = updatedQuality;
-  localStorage.setItem(key, JSON.stringify(ideaBox))
+  var toDoBox = JSON.parse(localStorage.getItem(key));
+  toDoBox.quality = updatedQuality;
+  localStorage.setItem(key, JSON.stringify(toDoBox))
 })
 
-$('.idea-box-container').on('focus', '.idea-title, .idea-body', function() {
-  var key = $(this).closest('.idea-card').attr('id')
-  var ideabox = JSON.parse(localStorage.getItem(key));
+$('.to-do-list').on('focus', '.to-do-title, .to-do-body', function() {
+  var key = $(this).closest('.to-do-card').attr('id')
+  var toDobox = JSON.parse(localStorage.getItem(key));
   $(this).on('keydown', function(event) {
     if(event.keyCode === 13){
       event.preventDefault();
@@ -101,9 +101,9 @@ $('.idea-box-container').on('focus', '.idea-title, .idea-body', function() {
   })
 
   $(this).on('blur', function() {
-    ideabox.title = $(this).closest('.idea-card').find('.idea-title').text();
-    ideabox.body = $(this).closest('.idea-card').find('.idea-body').text();
-    localStorage.setItem(key, JSON.stringify(ideabox));
+    toDobox.title = $(this).closest('.to-do-card').find('.to-do-title').text();
+    toDobox.body = $(this).closest('.to-do-card').find('.to-do-body').text();
+    localStorage.setItem(key, JSON.stringify(toDobox));
   })
 })
 
@@ -112,6 +112,6 @@ $('#search-input').on('keyup',function (){
   $('.search-target').each(function(){
     var text = $(this).text().toLowerCase();
     var isAMatch = !!text.match(searchValue);
-    $(this).closest('.idea-card').toggle(isAMatch);
+    $(this).closest('.to-do-card').toggle(isAMatch);
   });
 });
