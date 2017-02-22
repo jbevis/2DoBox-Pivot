@@ -58,7 +58,14 @@ function resetInputs(){
 }
 
 $('#title-input, #body-input').on('keyup', function(){
-  $('#save-button').prop('disabled', false);
+  var titleInput = $('#title-input').val();
+  var bodyInput = $('#body-input').val();
+  var $saveButton = $('#save-button');
+  if (titleInput === "" && bodyInput === "") {
+    $saveButton.prop('disabled', true);
+  }else {
+    $saveButton.prop('disabled', false);
+  }
 })
 
 $('.to-do-list').on('click','.upvote-button' , function() {
@@ -103,7 +110,7 @@ $('.to-do-list').on('focus', '.to-do-title, .to-do-body', function() {
   $(this).on('blur', function() {
     toDobox.title = $(this).closest('.to-do-card').find('.to-do-title').text();
     toDobox.body = $(this).closest('.to-do-card').find('.to-do-body').text();
-    localStorage.setItem(key, JSON.stringify(toDobox));
+    localStorage.setItem(key, JSON.stringify(toDoBox));
   })
 })
 
