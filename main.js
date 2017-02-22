@@ -1,7 +1,12 @@
 $(function () {
   for (var i = 0; i < localStorage.length; i++){
     var $storedtoDos = getStoredToDos(localStorage.key(i));
-    prependToDoBox($storedtoDos)
+    console.log($storedtoDos.completed)
+    if ($storedtoDos.completed === false) {
+    prependToDoBox($storedtoDos);
+    } else {
+      ;
+    }
   }
 })
 
@@ -15,7 +20,7 @@ $('#save-button').on('click', function() {
   var $title = $('#title-input').val();
   var $body = $('#body-input').val();
   var $uniqId = Date.now()
-  var $newtoDo = {id: $uniqId, title: $title, body: $body, quality: 'swill'};
+  var $newtoDo = {id: $uniqId, title: $title, body: $body, quality: 'swill', completed: false};
   storeToDo($uniqId, $newtoDo);
   prependToDoBox($newtoDo);
   resetInputs();
@@ -58,6 +63,7 @@ function prependToDoBox(toDoObj) {
         <button class="downvote-button"></button>
         <h3>quality: <span class="current-quality">${toDoObj.quality}</span></h3>
       </section>
+      <button class="complete-btn">Completed</button>
     </article>
     `
   )
@@ -100,11 +106,27 @@ $('.to-do-list').on('click','.downvote-button', function() {
 });
 
 
+$('.to-do-list').on('click', '.complete-btn', function (){
+  console.log($(this));
+  var key = $(this).closest('.to-do-card').attr('id');
+  var toDoBox = JSON.parse(localStorage.getItem(key));
+  $(this).parent().css({'text-decoration': 'line\\-through', 'background-color': '#F5F5F5'})
+  toDoBox.completed = true;
+  localStorage.setItem(key, JSON.stringify(toDoBox));
+});
+
+//toggle...hide card with completed = true;
+function hideCard () {
+  var cardId = $('.to-do-card').attr('id');
+  console.log(cardId)
+  var isComplete = cardId.att
+};
+
 function updateQuality (element, updatedQuality) {
   var key = $(element).closest('.to-do-card').attr('id');
   var toDoBox = JSON.parse(localStorage.getItem(key));
   toDoBox.quality = updatedQuality;
-  localStorage.setItem(key, JSON.stringify(toDoBox))
+  localStorage.setItem(key, JSON.stringify(toDoBox));
 };
 
 
