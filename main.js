@@ -20,7 +20,7 @@ $('#save-button').on('click', function() {
   var $title = $('#title-input').val();
   var $body = $('#body-input').val();
   var $uniqId = Date.now()
-  var $newtoDo = {id: $uniqId, title: $title, body: $body, quality: 'swill', completed: false};
+  var $newtoDo = {id: $uniqId, title: $title, body: $body, importance: 'normal', completed: false};
   storeToDo($uniqId, $newtoDo);
   prependToDoBox($newtoDo);
   resetInputs();
@@ -58,10 +58,10 @@ function prependToDoBox(toDoObj) {
         <h2 class="to-do-title" contenteditable>${toDoObj.title}</h2>
         <p class="to-do-body" contenteditable>${toDoObj.body}</p>
       </section>
-      <section class="quality">
+      <section class="importance">
         <button class="upvote-button"></button>
         <button class="downvote-button"></button>
-        <h3>quality: <span class="current-quality">${toDoObj.quality}</span></h3>
+        <h3>importance: <span class="current-importance">${toDoObj.importance}</span></h3>
       </section>
       <button class="complete-btn">Completed</button>
     </article>
@@ -77,32 +77,44 @@ $('.to-do-list').on('click', '.delete-button', function() {
 
 
 $('.to-do-list').on('click','.upvote-button' , function() {
-  var $currentQuality = $(this).siblings().find('.current-quality');
-  switch ($currentQuality.text()) {
-    case "swill":
-      $currentQuality.text("plausible")
+  var $currentImportance = $(this).siblings().find('.current-importance');
+  switch ($currentImportance.text()) {
+    case "none":
+      $currentImportance.text("low")
       break;
-    case "plausible":
-      $currentQuality.text("genius")
+    case "low":
+      $currentImportance.text("normal")
+      break;
+    case "normal":
+      $currentImportance.text("high")
+      break;
+    case "high":
+      $currentImportance.text("critical")
       break;
   };
-  var newQuality = $currentQuality.text();
-  updateQuality (this, newQuality);
+  var newImportance = $currentImportance.text();
+  updateImportance (this, newImportance);
 });
 
 
 $('.to-do-list').on('click','.downvote-button', function() {
-  var $currentQuality = $(this).siblings().find('.current-quality');
-  switch ($currentQuality.text()) {
-    case "genius":
-      $currentQuality.text("plausible")
+  var $currentImportance = $(this).siblings().find('.current-importance');
+  switch ($currentImportance.text()) {
+    case "critical":
+      $currentImportance.text("high")
       break;
-    case "plausible":
-      $currentQuality.text("swill")
+    case "high":
+      $currentImportance.text("normal")
+      break;
+    case "normal":
+      $currentImportance.text("low")
+      break;
+    case "low":
+      $currentImportance.text("none")
       break;
   };
-  var newQuality = $currentQuality.text();
-  updateQuality (this, newQuality);
+  var newImportance = $currentImportance.text();
+  updateImportance (this, newImportance);
 });
 
 
@@ -127,10 +139,10 @@ $('#show-completed').on('click', function() {
 })
 
 
-function updateQuality (element, updatedQuality) {
+function updateImportance (element, updatedImportance) {
   var key = $(element).closest('.to-do-card').attr('id');
   var toDoBox = JSON.parse(localStorage.getItem(key));
-  toDoBox.quality = updatedQuality;
+  toDoBox.importance = updatedImportance;
   localStorage.setItem(key, JSON.stringify(toDoBox));
 };
 
