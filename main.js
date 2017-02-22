@@ -115,12 +115,17 @@ $('.to-do-list').on('click', '.complete-btn', function (){
   localStorage.setItem(key, JSON.stringify(toDoBox));
 });
 
-//toggle...hide card with completed = true;
-function hideCard () {
-  var cardId = $('.to-do-card').attr('id');
-  console.log(cardId)
-  var isComplete = cardId.att
-};
+
+$('#show-completed').on('click', function() {
+  for (var i = 0; i < localStorage.length; i++) {
+    var storedToDos = getStoredToDos(localStorage.key(i));
+    if (storedToDos.completed === true) {
+      prependToDoBox(storedToDos);
+    }
+    console.log(this)
+  }
+})
+
 
 function updateQuality (element, updatedQuality) {
   var key = $(element).closest('.to-do-card').attr('id');
@@ -143,6 +148,7 @@ $('.to-do-list').on('focus', '.to-do-title, .to-do-body', function() {
   });
   cardBlur(toDoBox);
 })
+
 
 function cardBlur () {
   $('.to-do-list').on('blur', '.to-do-title, .to-do-body', function() {
