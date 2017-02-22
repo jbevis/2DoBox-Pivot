@@ -122,6 +122,16 @@ p {
   top: 5px;
 }
 
+.complete-btn {
+  margin: 10px 0;
+  background-color: #E5F3F2;
+  border: none;
+  float: right;
+  cursor: pointer;
+}
+
+
+
 .delete-button:hover {
   background-position: -21px 0;
 }
