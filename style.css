@@ -10,7 +10,7 @@ h1 {
   font-family: "Roboto Slab", serif;
 }
 
-.make-idea-teal {
+span {
   color: #00A79D;
 }
 
@@ -66,14 +66,14 @@ input:focus {
   background-color: #6D6E71;
 }
 
-.bottom-section {
+.search-area {
   align-items: center;
   display: flex;
   flex-direction: column;
   margin-top: 10px;
 }
 
-.idea-box-container {
+.to-do-list {
   align-items: center;
   display: flex;
   flex-direction: column;
