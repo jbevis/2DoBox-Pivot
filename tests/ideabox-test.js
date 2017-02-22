@@ -48,13 +48,13 @@ function testIdeaBox (driver) {
   driver.findElement(By.id('body-input')).sendKeys('Test idea body text');
   driver.findElement(By.id('save-button')).click();
   driver.sleep(3000).then(function () {
-    driver.findElement(By.className('idea-title')).getText().then(function(title) {
+    driver.findElement(By.className('to-do-title')).getText().then(function(title) {
       if (title === 'Test Idea') {
         console.log('Create card title test passed');
       } else {
         console.log('Create card title test failed');
       }
-    driver.findElement(By.className('idea-body')).getText().then(function(body) {
+    driver.findElement(By.className('to-do-body')).getText().then(function(body) {
       if (body === 'Test idea body text') {
         console.log('Create card body test passed');
       } else {
@@ -109,19 +109,19 @@ driver.sleep(3000).then(function () {
 
 
 //Check to see if card content is editable. Find card title and body, send keys, compare
-  driver.findElement(By.className('idea-title')).click();
-  driver.findElement(By.className('idea-title')).sendKeys('x');
-  driver.findElement(By.className('idea-body')).click();
-  driver.findElement(By.className('idea-body')).sendKeys('x');
+  driver.findElement(By.className('to-do-title')).click();
+  driver.findElement(By.className('to-do-title')).sendKeys('x');
+  driver.findElement(By.className('to-do-body')).click();
+  driver.findElement(By.className('to-do-body')).sendKeys('x');
   driver.sleep(4000).then(function () {
-    driver.findElement(By.className('idea-title')).getText().then(function (newTitle) {
+    driver.findElement(By.className('to-do-title')).getText().then(function (newTitle) {
       if (newTitle === 'Testx Idea') {
         console.log('Title content editable test passed');
       } else {
         console.log('Title content editable test failed');
       };
     });
-    driver.findElement(By.className('idea-body')).getText().then(function (newBody) {
+    driver.findElement(By.className('to-do-body')).getText().then(function (newBody) {
       if (newBody === "Test idea body textx") {
         console.log('Body content editable test passed');
       } else {
@@ -135,7 +135,7 @@ driver.sleep(3000).then(function () {
   driver.findElement(By.id('title-input')).sendKeys('Google');
   driver.findElement(By.id('save-button')).click();
   driver.findElement(By.id('search-input')).sendKeys('Google');
-  driver.findElement(By.className('idea-title')).getText().then(function (title) {
+  driver.findElement(By.className('to-do-title')).getText().then(function (title) {
     if (title === 'Google') {
       console.log('Search input test passed')
     } else {
@@ -144,10 +144,10 @@ driver.sleep(3000).then(function () {
   });
 
 
-  //Check localStorage and persistance. Page reload, compare to 'idea-body'
+  //Check localStorage and persistance. Page reload, compare to 'to-do-body'
   driver.navigate().refresh();
   driver.sleep(5000).then(function () {
-    driver.findElement(By.className('idea-title')).getText().then(function(title) {
+    driver.findElement(By.className('to-do-title')).getText().then(function(title) {
       if (title === 'Google') {
         console.log('Page reload test Passed');
       } else {
@@ -160,7 +160,7 @@ driver.sleep(3000).then(function () {
 //Check delete button. find delete button. click.
   driver.findElement(By.className('delete-button')).click();
   driver.sleep(3000).then(function () {
-    driver.findElement(By.className('idea-title')).getText().then(function(title) {
+    driver.findElement(By.className('to-do-title')).getText().then(function(title) {
       if (title === 'Testx Idea') {
         console.log('Delete button test passed');
       } else {
@@ -172,7 +172,7 @@ driver.sleep(3000).then(function () {
   //Reload to check localStorage after delete.
   driver.navigate().refresh();
   driver.sleep(3000).then(function () {
-    driver.findElement(By.className('idea-title')).getText().then(function(title) {
+    driver.findElement(By.className('to-do-title')).getText().then(function(title) {
       if (title === "Testx Idea") {
         console.log('Item removed from storage test passed');
       } else {
