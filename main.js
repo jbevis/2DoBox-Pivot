@@ -1,9 +1,9 @@
 $(function () {
   for (var i = 0; i < localStorage.length; i++){
     var $storedtoDos = getStoredToDos(localStorage.key(i));
-    console.log($storedtoDos.completed)
     if ($storedtoDos.completed === false) {
     prependToDoBox($storedtoDos);
+    hideToDos(0,9,10);
     } else {
       ;
     }
@@ -23,6 +23,7 @@ $('#save-button').on('click', function() {
   var $newtoDo = {id: $uniqId, title: $title, body: $body, importance: 'normal', completed: false};
   storeToDo($uniqId, $newtoDo);
   prependToDoBox($newtoDo);
+  hideToDos(0,9,10);
   resetInputs();
 })
 
@@ -48,6 +49,18 @@ $('#title-input, #body-input').on('keyup', function(){
     $saveButton.prop('disabled', false);
   }
 })
+
+
+var i = 0;
+$('#show-more').on('click', function () {
+  i+=5;
+  hideToDos(0, 9+i, 10+i);
+});
+
+function hideToDos (a, b, c) {
+  $('article').slice(a, b).css('display', 'block');
+  $('article').slice(c).css('display', 'none');
+}
 
 
 function prependToDoBox(toDoObj) {
@@ -122,7 +135,7 @@ $('.to-do-list').on('click', '.complete-btn', function (){
   console.log($(this));
   var key = $(this).closest('.to-do-card').attr('id');
   var toDoBox = JSON.parse(localStorage.getItem(key));
-  $(this).parent().css({'text-decoration': 'line\\-through', 'background-color': '#F5F5F5'})
+  $(this).parent().css({'text-decoration': 'line\\-through', 'background-color': '#F5F5F5'});
   toDoBox.completed = true;
   localStorage.setItem(key, JSON.stringify(toDoBox));
 });
@@ -132,6 +145,7 @@ $('#show-completed').on('click', function() {
   for (var i = 0; i < localStorage.length; i++) {
     var storedToDos = getStoredToDos(localStorage.key(i));
     if (storedToDos.completed === true) {
+      // storedToDos.css({'text-decoration': 'line\\-through', 'background-color': '#F5F5F5'});
       prependToDoBox(storedToDos);
     }
     console.log(this)
