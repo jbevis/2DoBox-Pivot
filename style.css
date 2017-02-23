@@ -211,7 +211,6 @@ h3{
   }
 
   article {
-    max-height: 200px;
-    overflow: scroll;
+    max-height: 250px;
   }
 }
