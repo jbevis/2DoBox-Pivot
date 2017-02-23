@@ -104,13 +104,16 @@ p {
   font-size: 18px;
 }
 
+.current-importance {
+  font-family: "Open Sans", sans-serif;
+}
+
 .delete-button,
 .downvote-button,
 .upvote-button {
   background: url('images/sprite.png') no-repeat top left;
   border: none;
   height: 20px;
-  margin-bottom: 15px;
   width: 20px;
 }
 
@@ -122,15 +125,35 @@ p {
   top: 5px;
 }
 
-.complete-btn {
+.new-btns {
   margin: 10px 0;
-  background-color: #E5F3F2;
+  background-color: #00A79D;
   border: none;
   float: right;
   cursor: pointer;
-  width: 50%;
-  color: #6D6E71;
+  width: 80%;
+  color: #FFFFFF;
 }
+
+.new-btns:hover {
+  background-color: #045E55;
+}
+
+#to-do-complete {
+  margin: 10px 0;
+  background-color: #00A79D;
+  border: none;
+  float: right;
+  cursor: pointer;
+  width: 33%;
+  color: #FFFFFF;
+  padding: 5px;
+}
+
+#to-do-complete:hover {
+  background-color: #045E55;
+}
+
 
 .filer-area {
   display: flex;
@@ -155,6 +178,22 @@ ul {
 div {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 15px;
+}
+
+.imp-btn {
+  width: 70px;
+  margin: 12px 10px;
+  background-color: #00A79D;
+  border: none;
+  color: #FFFFFF;
+  font-family: "Open Sans", sans-serif;
+  cursor: pointer;
+}
+
+.imp-btn:hover {
+  background-color: #045E55;
 }
 
 .delete-button:hover {
@@ -193,7 +232,14 @@ h3{
   font-weight: 500;
 }
 
-@media screen and (min-width: 640px){
+.importance {
+  display: flex;
+  align-items: center;
+  margin-bottom: -45px;
+
+}
+
+@media screen and (min-width: 775px){
 
   h1{
     font-size: 2.5em;
@@ -212,5 +258,21 @@ h3{
 
   article {
     max-height: 250px;
+  }
+
+  .new-btns {
+    width: 60%
+  }
+
+  .imp-btn {
+    width: 60px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+
+  #to-do-complete {
+    font-size: 12px;
+    width: 25%;
   }
 }
