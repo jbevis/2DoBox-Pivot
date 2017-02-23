@@ -195,3 +195,27 @@ $('#search-input').on('keyup',function (){
     $(toDo).toggle(isAMatch);
   });
 });
+
+//Need 5 radio buttons for each level of importance
+//If radio button clicked, corresponding cars display
+//others are hidden
+
+$('.imp-btn').on('click', function() {
+  var priorityButton = $(this).attr("label");
+  console.log(priorityButton);
+  $('.to-do-card').each(function(index, toDoCard){
+    var text = $(this).text().toLowerCase();
+    var matchImportance = text.indexOf(priorityButton) !== -1;
+    $(toDoCard).toggle(matchImportance);
+  })
+})
+
+// function getCardImportance () {
+//   for (var i = 0; i < localStorage.length; i++){
+//     var $storedtoDos = getStoredToDos(localStorage.key(i));
+//   var toDoCard = JSON.parse(localStorage.getItem(key));
+//   var key = $('.to-do-card').attr('id');
+//   var toDoImp = toDoCard.importance;
+//     console.log(toDoImp);
+//   }
+// }
