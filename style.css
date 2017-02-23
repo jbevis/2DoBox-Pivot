@@ -130,7 +130,18 @@ p {
   cursor: pointer;
 }
 
+.filer-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.radio-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+}
 
 
 .delete-button:hover {
